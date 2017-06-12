@@ -19,11 +19,11 @@ Route::get('/', function () {
 });
 
 Route::get('sms/send/{to}', function (\Nexmo\Client $nexmo, $to) {
-    $message = $nexmo->message()->send([
+
+    $nexmo->message()->send([
         'to' => $to,
         'from' => '@leggetter',
-        'text' => 'Sending SMS from Laravel. Woohoo!'
+        'text' => 'Welcome to the Best System Developers in Tanzania. Tembelea https://wedevelop.co.tz!'
     ]);
-    Log::info('sent message: ', $message['message-id']);
     dd('Done!');
 });
