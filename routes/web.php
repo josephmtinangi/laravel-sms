@@ -20,10 +20,16 @@ Route::get('/', function () {
 
 Route::get('sms/send/{to}', function (\Nexmo\Client $nexmo, $to) {
 
-    $nexmo->message()->send([
+    $message = $nexmo->message()->send([
         'to' => $to,
-        'from' => '@leggetter',
+        'from' => env('NEXMO_NUMBER'),
         'text' => 'Welcome to the Best System Developers in Tanzania. Tembelea https://wedevelop.co.tz!'
     ]);
+    Log::info('sent message: ' . $message['message-id']);
     dd('Done!');
+});
+
+Route::post('/sms/receive', function () {
+    $message = \Nexmo\Message\InboundMessage::createFromGlobals();
+    Log::info('got text: ' . $message->getBody());
 });
